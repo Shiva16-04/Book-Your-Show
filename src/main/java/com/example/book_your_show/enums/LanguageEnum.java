@@ -8,7 +8,6 @@ public enum LanguageEnum {
     MALAYALAM("Malayalam"),
     TAMIL("Tamil"),
     TELUGU("Telugu");
-
     private final String displayName;
     LanguageEnum(String displayName){
         this.displayName=displayName;
@@ -16,5 +15,4 @@ public enum LanguageEnum {
     public String getDisplayName(){
         return displayName;
     }
-
 }

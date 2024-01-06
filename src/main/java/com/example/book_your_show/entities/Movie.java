@@ -1,9 +1,7 @@
 package com.example.book_your_show.entities;
 
 import com.example.book_your_show.enums.FilmCertificationCategory;
-import com.example.book_your_show.enums.Format;
-import com.example.book_your_show.enums.GenreEnum;
-import com.example.book_your_show.enums.LanguageEnum;
+import com.example.book_your_show.enums.FormatEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -13,7 +11,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name = "movie")
+@Table
 @Builder
 @Getter
 @Data
@@ -32,16 +30,16 @@ public class Movie {
     LocalDate releaseDate;
     @Column(nullable = false)
     LocalTime screenTime;
-    @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
-    Format format;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(nullable = false)
+    List<Format> formatList;
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     FilmCertificationCategory filmCertificationCategory;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
-    List<Language>languagesReleasedIn;
-    @ManyToMany
+    List<Language> languagesReleasedIn;
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     List<Genre> genreList;
     @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)

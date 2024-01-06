@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 import java.util.List;
 
 @Entity
-@Table(name = "screen_seat")
+@Table
 @Builder
 @Data
 @AllArgsConstructor

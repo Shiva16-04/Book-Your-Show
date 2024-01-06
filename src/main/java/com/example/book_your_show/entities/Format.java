@@ -1,33 +1,27 @@
 package com.example.book_your_show.entities;
 
+import com.example.book_your_show.enums.FormatEnum;
+import com.example.book_your_show.enums.GenreEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-
 @Entity
 @Table
 @Builder
+@Getter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Ticket {
+public class Format {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    @Column(nullable = false)
-    int totalPrice;
-    @OneToMany(mappedBy = "ticket")
-//    @JoinColumn(nullable = false)--doubt
-    List<ShowSeat>bookedSeats;
-    @ManyToOne
-    Show show;
-    @ManyToOne
-    User user;
+    @Column(nullable = false, unique = true)
+    @Enumerated(EnumType.STRING)
+    FormatEnum name;
+    @ManyToMany(mappedBy = "formatList")
+    List<Movie> movieList;
 }

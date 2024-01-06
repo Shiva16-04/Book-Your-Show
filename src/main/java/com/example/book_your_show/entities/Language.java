@@ -21,7 +21,7 @@ public class Language {
     int id;
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
-    LanguageEnum language;
-    @ManyToMany(mappedBy = "languagesReleasedIn", cascade = CascadeType.ALL)
+    LanguageEnum name;
+    @ManyToMany(mappedBy = "languagesReleasedIn")
     List<Movie> movieList;
 }

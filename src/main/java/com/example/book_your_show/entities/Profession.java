@@ -21,7 +21,7 @@ public class Profession {
     int id;
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
-    ProfessionEnum profession;
-    @ManyToMany(mappedBy = "professionList", cascade = CascadeType.ALL)
+    ProfessionEnum name;
+    @ManyToMany(mappedBy = "professionList")
     List<FilmMaker> filmMakerList;
 }

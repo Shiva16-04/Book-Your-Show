@@ -6,7 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "show_seat")
+@Table
 @Builder
 @Data
 @AllArgsConstructor

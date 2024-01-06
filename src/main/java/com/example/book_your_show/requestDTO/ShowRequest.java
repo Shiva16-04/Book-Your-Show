@@ -1,14 +1,15 @@
 package com.example.book_your_show.requestDTO;
 
+import com.example.book_your_show.enums.FormatEnum;
+import com.example.book_your_show.enums.LanguageEnum;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,8 +17,9 @@ import java.time.LocalTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ShowRequest {
     String movieCode;
-    LocalDate Date;
-    LocalTime time;
+    LocalDateTime startTime;
+    LanguageEnum language;
+    FormatEnum formatEnum;
     String theatreCode;
     String screenNumber;
     int priceOfSilverSeats;

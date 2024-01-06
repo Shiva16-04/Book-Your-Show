@@ -8,10 +8,11 @@ import com.example.book_your_show.enums.SeatType;
 import com.example.book_your_show.requestDTO.ShowRequest;
 import com.example.book_your_show.service.ShowSeatService;
 import com.example.book_your_show.transformers.ShowSeatTransformer;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class ShowSeatServiceImpl implements ShowSeatService {
 
 
@@ -62,7 +63,7 @@ public class ShowSeatServiceImpl implements ShowSeatService {
             show.getShowSeatList().add(showSeat);
             screenSeat.getShowSeatList().add(showSeat);
 
-            //adding it tot the showSeat list
+            //adding it to the showSeat list
             showSeatList.add(showSeat);
         }
         return showSeatList;

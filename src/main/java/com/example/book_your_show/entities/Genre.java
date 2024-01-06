@@ -20,7 +20,7 @@ public class Genre {
     int id;
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
-    GenreEnum genre;
-    @ManyToMany(mappedBy = "genreList", cascade = CascadeType.ALL)
+    GenreEnum name;
+    @ManyToMany(mappedBy = "genreList")
     List<Movie> movieList;
 }
