@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface AddressRepository extends JpaRepository<Address, Integer> {
     Optional<Address>findByLocationUrl(URL locationUrl);
     Optional<Address>findByCode(String code);
-    @Query(value = "SELECT MAX(CAST(SUBSTRING(code, 11) AS SIGNED)) FROM Address WHERE SUBSTRING(code, 1, 4) = :year", nativeQuery = true)
+    @Query(value = "SELECT MAX(CAST(SUBSTRING(code, 12) AS SIGNED)) FROM Address WHERE SUBSTRING(code, 1, 4) = :year", nativeQuery = true)
     Long findLatestSequenceNumber(@Param("year") String year);
 }

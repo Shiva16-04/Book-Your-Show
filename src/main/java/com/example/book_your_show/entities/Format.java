@@ -20,7 +20,7 @@ public class Format {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(nullable = false, unique = true)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     FormatEnum name;
     @ManyToMany(mappedBy = "formatList")
     List<Movie> movieList;

@@ -23,8 +23,8 @@ public class Address {
     @Column(nullable = false)
     String plotNo;
     String locality;
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
     City city;
     @Column(nullable = false)
     Integer pinCode;

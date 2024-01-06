@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString(exclude = "professionList")
 public class FilmMaker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

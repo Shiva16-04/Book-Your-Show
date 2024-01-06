@@ -20,7 +20,7 @@ public class Profession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(nullable = false, unique = true)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     ProfessionEnum name;
     @ManyToMany(mappedBy = "professionList")
     List<FilmMaker> filmMakerList;

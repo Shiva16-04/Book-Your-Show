@@ -6,7 +6,8 @@ public enum SeatType {
     PLATINUM("Platinum"),
     LOUNGERS("Loungers"),
     SEMI_RECLINERS("Semi Recliners"),
-    RECLINERS("Recliners");
+    RECLINERS("Recliners"),
+    PHYSICALLY_HANDICAPPED("Physically Handicapped");
     private final String displayName;
     SeatType(String displayName){
         this.displayName=displayName;

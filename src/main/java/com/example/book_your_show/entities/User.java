@@ -25,7 +25,7 @@ public class User {
     @Column( nullable = false)
     String name;
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     Role role;
     @Column(nullable = false)
     int age;
@@ -37,5 +37,4 @@ public class User {
     String contactNumber;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Ticket>ticketList;
-
 }

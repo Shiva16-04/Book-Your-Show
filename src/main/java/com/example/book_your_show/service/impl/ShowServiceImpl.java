@@ -11,6 +11,7 @@ import com.example.book_your_show.repository.ScreenRepository;
 import com.example.book_your_show.repository.ShowRepository;
 import com.example.book_your_show.repository.TheatreRepository;
 import com.example.book_your_show.requestDTO.ShowRequest;
+import com.example.book_your_show.service.ScreenService;
 import com.example.book_your_show.service.ShowSeatService;
 import com.example.book_your_show.service.ShowService;
 import com.example.book_your_show.transformers.ShowTransformer;
@@ -32,6 +33,8 @@ import java.util.Optional;
 public class ShowServiceImpl implements ShowService {
     @Autowired
     private ShowSeatService showSeatService;
+    @Autowired
+    private ScreenService screenService;
     @Autowired
     private ShowRepository showRepository;
     @Autowired
@@ -58,13 +61,12 @@ public class ShowServiceImpl implements ShowService {
         if(optionalTheatre.isEmpty()){
             throw new InvalidTheatreCodeException("Theatre Code is Invalid. Try requesting for show again with correct details");
         }
-        Optional<Screen> optionalScreen=screenRepository.findByTheatreCodeAndScreenNumber(theatreCode, screenNumber);
-        if(optionalScreen.isEmpty()){
-            throw new ScreenNotFoundException("Screen not found with the particular screen number and theatre code combination. Try again with correct information");
-        }
+
+
+        Screen screen=screenService.getScreenByTheatreCodeAndScreenNumber(theatreCode,screenNumber);
         Movie movie=optionalMovie.get();
         Theatre theatre=optionalTheatre.get();
-        Screen screen=optionalScreen.get();
+
 
 
         //arranging (or) truncating time up to minutes by eliminating seconds

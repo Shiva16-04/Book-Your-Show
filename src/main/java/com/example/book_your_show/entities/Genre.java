@@ -19,7 +19,7 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(nullable = false, unique = true)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     GenreEnum name;
     @ManyToMany(mappedBy = "genreList")
     List<Movie> movieList;

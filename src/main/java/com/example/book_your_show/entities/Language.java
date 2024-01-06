@@ -20,7 +20,7 @@ public class Language {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @Column(nullable = false, unique = true)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     LanguageEnum name;
     @ManyToMany(mappedBy = "languagesReleasedIn")
     List<Movie> movieList;

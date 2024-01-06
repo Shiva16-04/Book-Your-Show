@@ -1,11 +1,11 @@
 package com.example.book_your_show.service;
 
 import com.example.book_your_show.entities.Screen;
-import com.example.book_your_show.entities.Theatre;
-import com.example.book_your_show.requestDTO.TheatreRequest;
+import com.example.book_your_show.requestDTO.ScreenRequest;
 
 import java.util.List;
 
 public interface ScreenService {
-    public List<Screen> createScreens(Theatre theatre, TheatreRequest theatreRequest);
+    public String addScreens(String theatreCode, List<ScreenRequest>screenRequestList)throws Exception;
+    public Screen getScreenByTheatreCodeAndScreenNumber(String theatreCode, String screenNumber)throws Exception;
 }

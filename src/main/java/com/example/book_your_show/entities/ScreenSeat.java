@@ -21,9 +21,9 @@ public class ScreenSeat {
     @Column(nullable = false)
     String screenSeatNumber;
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     SeatType screenSeatType;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     Screen screen;
     @OneToMany(mappedBy = "screenSeat", cascade = CascadeType.ALL)
     List<ShowSeat> showSeatList;
