@@ -16,5 +16,8 @@ public class UserRequest {
     String name;
     int age;
     String emailId;
+    String emailVerificationCode;
     String contactNumber;
+    String password;
+    String reTypePassword;
 }

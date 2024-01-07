@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table
 @Builder
 @Data
 @AllArgsConstructor
@@ -22,8 +22,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(nullable = false, unique = true)
+    String code;
     @Column( nullable = false)
     String name;
+    @Column(nullable = false)
+    String password;
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     Role role;

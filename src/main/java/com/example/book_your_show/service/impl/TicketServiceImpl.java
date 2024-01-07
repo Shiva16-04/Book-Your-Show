@@ -3,12 +3,13 @@ package com.example.book_your_show.service.impl;
 import com.example.book_your_show.entities.Ticket;
 import com.example.book_your_show.repository.TicketRepository;
 import com.example.book_your_show.requestDTO.TicketRequest;
+import com.example.book_your_show.service.TicketService;
 import com.example.book_your_show.transformers.TicketTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TicketServiceImpl {
+public class TicketServiceImpl implements TicketService {
     @Autowired
     private TicketRepository ticketRepository;
 
