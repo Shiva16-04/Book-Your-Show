@@ -20,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString(exclude = {"movie", "screenList", "showSeatList", "ticketList"})
 public class Show {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

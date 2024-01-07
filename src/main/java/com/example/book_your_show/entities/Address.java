@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.net.URL;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -32,4 +33,9 @@ public class Address {
     URL locationUrl;
     @OneToOne //parent with respect to the theatre #bidirectional mapping
     Theatre theatre;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, code, plotNo, locality, city, pinCode, locationUrl);
+    }
 }

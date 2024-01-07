@@ -22,10 +22,5 @@ public class ShowRequest {
     FormatEnum formatEnum;
     String theatreCode;
     String screenNumber;
-    int priceOfSilverSeats;
-    int priceOfGoldSeats;
-    int priceOfPlatinumSeats;
-    int priceOfLoungers;
-    int priceOfSemiRecliners;
-    int priceOfRecliners;
+    ShowSeatRequest showSeatRequest;
 }

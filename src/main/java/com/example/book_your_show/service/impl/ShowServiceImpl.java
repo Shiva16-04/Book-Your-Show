@@ -1,29 +1,21 @@
 package com.example.book_your_show.service.impl;
 
 import com.example.book_your_show.entities.*;
-import com.example.book_your_show.exceptions.InvalidMovieCodeException;
-import com.example.book_your_show.exceptions.InvalidTheatreCodeException;
-import com.example.book_your_show.exceptions.ScreenNotFoundException;
+import com.example.book_your_show.exceptions.InvalidShowCodeException;
 import com.example.book_your_show.exceptions.ShowCannotBeAddedException;
 import com.example.book_your_show.generators.ShowCodeGenerator;
-import com.example.book_your_show.repository.MovieRepository;
-import com.example.book_your_show.repository.ScreenRepository;
 import com.example.book_your_show.repository.ShowRepository;
-import com.example.book_your_show.repository.TheatreRepository;
 import com.example.book_your_show.requestDTO.ShowRequest;
-import com.example.book_your_show.service.ScreenService;
-import com.example.book_your_show.service.ShowSeatService;
-import com.example.book_your_show.service.ShowService;
+import com.example.book_your_show.service.*;
 import com.example.book_your_show.transformers.ShowTransformer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
@@ -36,38 +28,23 @@ public class ShowServiceImpl implements ShowService {
     @Autowired
     private ScreenService screenService;
     @Autowired
+    private MovieService movieService;
+    @Autowired
+    private TheatreService theatreService;
+    @Autowired
     private ShowRepository showRepository;
     @Autowired
-    private MovieRepository movieRepository;
-    @Autowired
-    private TheatreRepository theatreRepository;
-    @Autowired
-    private ScreenRepository screenRepository;
-    @Autowired
     private ShowCodeGenerator showCodeGenerator;
-
+    @Transactional
     public String addShow(ShowRequest showRequest) throws Exception{
 
         String movieCode=showRequest.getMovieCode();
         String theatreCode=showRequest.getTheatreCode();
         String screenNumber=showRequest.getScreenNumber();
 
-
-        Optional<Movie> optionalMovie=movieRepository.findByCode(movieCode);
-        if(optionalMovie.isEmpty()){
-            throw new InvalidMovieCodeException("Movie Code is invalid. Try requesting for show again with correct details");
-        }
-        Optional<Theatre> optionalTheatre=theatreRepository.findByCode(theatreCode);
-        if(optionalTheatre.isEmpty()){
-            throw new InvalidTheatreCodeException("Theatre Code is Invalid. Try requesting for show again with correct details");
-        }
-
-
+        Movie movie=movieService.getMovieByMovieCode(movieCode);
+        Theatre theatre=theatreService.getTheatreByTheatreCode(theatreCode);
         Screen screen=screenService.getScreenByTheatreCodeAndScreenNumber(theatreCode,screenNumber);
-        Movie movie=optionalMovie.get();
-        Theatre theatre=optionalTheatre.get();
-
-
 
         //arranging (or) truncating time up to minutes by eliminating seconds
         LocalTime screenTime=movie.getScreenTime().truncatedTo(ChronoUnit.MINUTES);
@@ -81,7 +58,6 @@ public class ShowServiceImpl implements ShowService {
         }
         //Calculating end time of show based on start time and movie screen time
         LocalDateTime endTime=startTime.plusHours(screenTime.getHour()).plusMinutes(screenTime.getMinute());
-
 
         //validating if there is any overlap of show by adding this show in that particular screen
         List<Show>showList=showRepository.findShowsByScreenNumberAndTimeRangeAndTheatreCode(screenNumber, startTime, endTime, startTime, endTime, theatreCode);
@@ -101,12 +77,18 @@ public class ShowServiceImpl implements ShowService {
 
         screen.getShowList().add(show); //setting bidirectional mapping
         movie.getShowList().add(show); //setting bidirectional mapping
-
-        List<ShowSeat>showSeatList=showSeatService.createShowSeats(show, screen, showRequest);
-        show.setShowSeatList(showSeatList);
-
         Show showRes=showRepository.save(show);
+
+        showSeatService.addShowSeats(show.getCode(), screenNumber, theatreCode, showRequest.getShowSeatRequest());
+
         return showRes.getCode();
+    }
+    public Show getShowByShowCode(String showCode)throws Exception{
+        Optional<Show>optionalShow=showRepository.findByCode(showCode);
+        if(!optionalShow.isPresent()){
+            throw new InvalidShowCodeException("Show code is invalid!!!Try passing the valid Show Code");
+        }
+        return optionalShow.get();
     }
 
 }

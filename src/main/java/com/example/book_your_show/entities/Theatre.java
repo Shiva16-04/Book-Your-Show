@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString(exclude = {"address", "screens"})
 public class Theatre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +30,9 @@ public class Theatre {
     Address address;
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL) //parent with respect to number of screens
     List<Screen> screens;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, code, name, numberOfScreens, address, screens);
+    }
 }

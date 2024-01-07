@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString(exclude = {"theatre", "screenSeatList", "showList"})
 public class Screen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString(exclude = {"formatList", "languagesReleasedIn", "genreList", "filmMakersList"})
+@ToString(exclude = {"formatList", "languagesReleasedIn", "genreList", "showList", "filmMakersList"})
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,6 +5,7 @@ import com.example.book_your_show.enums.FilmCertificationCategory;
 import com.example.book_your_show.enums.FormatEnum;
 import com.example.book_your_show.enums.GenreEnum;
 import com.example.book_your_show.enums.LanguageEnum;
+import com.example.book_your_show.exceptions.InvalidMovieCodeException;
 import com.example.book_your_show.exceptions.MovieAlreadyPresentException;
 import com.example.book_your_show.generators.MovieCodeGenerator;
 import com.example.book_your_show.repository.MovieRepository;
@@ -69,5 +70,12 @@ public class MovieServiceImpl implements MovieService {
 
         Movie savedMovie=movieRepository.save(movie);
         return "Movie has been registered successfully with Movie code: "+savedMovie;
+    }
+    public Movie getMovieByMovieCode(String movieCode)throws Exception{
+        Optional<Movie> optionalMovie=movieRepository.findByCode(movieCode);
+        if(optionalMovie.isEmpty()){
+            throw new InvalidMovieCodeException("Movie Code is invalid. Try requesting for show again with correct details");
+        }
+        return optionalMovie.get();
     }
 }

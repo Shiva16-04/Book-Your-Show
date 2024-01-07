@@ -6,19 +6,30 @@ import com.example.book_your_show.entities.Show;
 import com.example.book_your_show.entities.ShowSeat;
 import com.example.book_your_show.enums.SeatType;
 import com.example.book_your_show.requestDTO.ShowRequest;
+import com.example.book_your_show.requestDTO.ShowSeatRequest;
+import com.example.book_your_show.service.ScreenService;
 import com.example.book_your_show.service.ShowSeatService;
+import com.example.book_your_show.service.ShowService;
 import com.example.book_your_show.transformers.ShowSeatTransformer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ShowSeatServiceImpl implements ShowSeatService {
+    @Autowired
+    private ShowService showService;
+    @Autowired
+    private ScreenService screenService;
 
+    @Transactional
+    public String addShowSeats(String showCode, String screenNumber, String theatreCode,  ShowSeatRequest showSeatRequest)throws Exception{
 
-    public List<ShowSeat> createShowSeats(Show show, Screen screen, ShowRequest showRequest){
-
-        List<ScreenSeat> screenSeatList =screen.getScreenSeatList();
+        Show show=showService.getShowByShowCode(showCode);
+        Screen screen=screenService.getScreenByTheatreCodeAndScreenNumber(theatreCode, screenNumber);
+        List<ScreenSeat>screenSeatList=screen.getScreenSeatList();
         List<ShowSeat>showSeatList=new ArrayList<>();
 
         for(ScreenSeat screenSeat : screenSeatList){
@@ -27,27 +38,27 @@ public class ShowSeatServiceImpl implements ShowSeatService {
             SeatType seatType=screenSeat.getScreenSeatType();
             switch (seatType){
                 case SILVER -> {
-                    cost = showRequest.getPriceOfSilverSeats();
+                    cost = showSeatRequest.getPriceOfSilverSeats();
                     isFoodAttached = false;
                 }
                 case GOLD ->{
-                    cost=showRequest.getPriceOfGoldSeats();
+                    cost=showSeatRequest.getPriceOfGoldSeats();
                     isFoodAttached=false;
                 }
                 case PLATINUM -> {
-                    cost = showRequest.getPriceOfPlatinumSeats();
+                    cost = showSeatRequest.getPriceOfPlatinumSeats();
                     isFoodAttached=true;
                 }
                 case LOUNGERS -> {
-                    cost = showRequest.getPriceOfLoungers();
+                    cost = showSeatRequest.getPriceOfLoungers();
                     isFoodAttached=true;
                 }
                 case SEMI_RECLINERS -> {
-                    cost= showRequest.getPriceOfSemiRecliners();
+                    cost= showSeatRequest.getPriceOfSemiRecliners();
                     isFoodAttached=true;
                 }
                 case RECLINERS -> {
-                    cost = showRequest.getPriceOfRecliners();
+                    cost = showSeatRequest.getPriceOfRecliners();
                     isFoodAttached=true;
                 }
             }
@@ -66,6 +77,6 @@ public class ShowSeatServiceImpl implements ShowSeatService {
             //adding it to the showSeat list
             showSeatList.add(showSeat);
         }
-        return showSeatList;
+        return "Show seat list"+ showSeatList+" have been added successfully";
     }
 }
