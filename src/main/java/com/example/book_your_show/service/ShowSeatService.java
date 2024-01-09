@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface ShowSeatService {
     public String addShowSeats(String showCode, String screenNumber, String theatreCode,  ShowSeatRequest showSeatRequest)throws Exception;
+    public List<ShowSeat> findShowSeatsByShowCodeAndShowSeatNoList(String showCode, List<String>showSeatNumberList);
 }

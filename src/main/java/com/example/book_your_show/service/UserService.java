@@ -1,5 +1,6 @@
 package com.example.book_your_show.service;
 
+import com.example.book_your_show.entities.User;
 import com.example.book_your_show.requestDTO.UserEmailRequest;
 import com.example.book_your_show.requestDTO.UserRequest;
 
@@ -9,4 +10,5 @@ public interface UserService {
     private boolean mailValidation(String email, String code)throws Exception{
         return true;
     }
+    public User getUserByEmailId(String emailId)throws Exception;
 }

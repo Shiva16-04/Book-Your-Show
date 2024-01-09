@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class Show {
     @Column(nullable = false)
     LocalDateTime endTime;
     @Column(nullable = false)
+    LocalTime ticketCancellationTimeLimit;
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     LanguageEnum languageEnum;
     @Column(nullable = false)
@@ -41,8 +44,9 @@ public class Show {
     FormatEnum formatEnum;
     @ManyToOne //here show is the child with respect to the movie
     Movie movie;
-    @ManyToMany //here show is the child with respect to the Screen
-    List<Screen> screenList;
+//    @ManyToMany //here show is the child with respect to the Screen
+    @ManyToOne
+    Screen screen;
     @OneToMany (mappedBy = "show", cascade = CascadeType.ALL) //parent with respect to the show seat
     List<ShowSeat>showSeatList;
     @OneToMany (mappedBy = "show", cascade = CascadeType.ALL)

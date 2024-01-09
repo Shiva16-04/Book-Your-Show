@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 public class ShowRequest {
     String movieCode;
     LocalDateTime startTime;
+    LocalTime ticketCancellationTimeLimit;
     LanguageEnum language;
     FormatEnum formatEnum;
     String theatreCode;

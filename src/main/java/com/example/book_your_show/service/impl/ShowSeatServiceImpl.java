@@ -5,6 +5,7 @@ import com.example.book_your_show.entities.ScreenSeat;
 import com.example.book_your_show.entities.Show;
 import com.example.book_your_show.entities.ShowSeat;
 import com.example.book_your_show.enums.SeatType;
+import com.example.book_your_show.repository.ShowSeatRepository;
 import com.example.book_your_show.requestDTO.ShowRequest;
 import com.example.book_your_show.requestDTO.ShowSeatRequest;
 import com.example.book_your_show.service.ScreenService;
@@ -23,8 +24,10 @@ public class ShowSeatServiceImpl implements ShowSeatService {
     private ShowService showService;
     @Autowired
     private ScreenService screenService;
+    @Autowired
+    private ShowSeatRepository showSeatRepository;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String addShowSeats(String showCode, String screenNumber, String theatreCode,  ShowSeatRequest showSeatRequest)throws Exception{
 
         Show show=showService.getShowByShowCode(showCode);
@@ -78,5 +81,9 @@ public class ShowSeatServiceImpl implements ShowSeatService {
             showSeatList.add(showSeat);
         }
         return "Show seat list"+ showSeatList+" have been added successfully";
+    }
+    public List<ShowSeat> findShowSeatsByShowCodeAndShowSeatNoList(String showCode, List<String>showSeatNumberList){
+        List<ShowSeat>showSeatList=showSeatRepository.findByShowCodeAndShowSeatNoIn(showCode, showSeatNumberList);
+        return showSeatList;
     }
 }

@@ -21,7 +21,6 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TicketRequest {
-    String screenNumber;
     String showCode;
     List<String> bookedSeats;
 }

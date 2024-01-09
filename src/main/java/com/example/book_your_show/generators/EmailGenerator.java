@@ -1,5 +1,7 @@
 package com.example.book_your_show.generators;
 
+import com.example.book_your_show.entities.User;
+import com.example.book_your_show.responseDTO.TicketResponse;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -13,25 +15,34 @@ public class EmailGenerator {
     }
     public String userSuccessfulRegistrationMessageEmailGenerator(String name){
 
-        String body= "Dear "+name+" !!!\nWelcome to the English Readers' Club.\nYou have been successfully registered with us.";
+        String body= "Dear "+name+" !!!\n\n\n" +
+                "Welcome to the Book My Show. You have been successfully registered with us.\n\n\n" +
+                "Regards,\n\n" +
+                "Team Burning Beatles";
         return body;
     }
-    public String bookIssueEmailGenerator(String userName, String bookName, LocalDate returnDate){
-        String body= "Dear "+userName+" !!!\n\nYour Book "+bookName+" has been issued" +
-                "\nWe are expecting you to return the book by "+returnDate;
+    public String ticketBookingConfirmationEmailGenerator(String name, TicketResponse ticketResponse){
+        String body="Dear "+name+"!!!\n\n\n" +
+                "Your ticket booking has been confirmed. Show the below e-ticket at the entry of respective theatre/screen.\n" +
+                ticketResponse.getMovieName()+"("+ticketResponse.getFilmCertificationCategory()+")\n" +
+                ticketResponse.getLanguage()+", "+ticketResponse.getFormat()+"\n" +
+                ticketResponse.getTheatreName()+": "+ticketResponse.getLocality()+" (Screen Number: "+ticketResponse.getScreenNumber()+")\n" +
+                "Location URL: "+ticketResponse.getLocationUrl()+"\n" +
+                ticketResponse.getSeatInfo()+"\n" +
+                "Show Date: "+ticketResponse.getShowDate()+"\n" +
+                "Show Time: "+ticketResponse.getShowTime()+"\n\n\n" +
+                "Regards,\n\n" +
+                "Team Burning Beatles";
         return body;
     }
-    public String bookReturnEmailGenerator(String userName, String bookName, LocalDate returnDate){
-        String body= "Dear "+userName+" !!!\n\nYour book "+bookName+" has been returned to ERC successfully"+
-                "\nTry exploring other books. Have a nice day!!!";
-        return body;
-    }
-    public String dueAmountOnBookEmailGenerator(String name, String bookName, int amount){
+    public String ticketCancellationConfirmationEmailGenerator(String name, String message){
+        return "Dear "+name+"!!!\n\n\n" +
+                message+"\n\n\n" +
+                "Regards,\n\n" +
+                "Team Burning Beatles";
 
-        String body= "Dear "+name+" !!!\nDeadline to return the book "+bookName+" that is issued to is crossed. Fine amount to be paid till date is "+amount+"" +
-                "\n Return the book by tomorrow";
-
-        return body;
     }
+
+
 
 }

@@ -22,7 +22,7 @@ public class ScreenSeatServiceImpl implements ScreenSeatService {
     private ScreenService screenService;
     @Autowired
     private ScreenSeatRepository screenSeatRepository;
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String addScreenSeats(String theatreCode, String screenNumber, List<ScreenSeatRequest>screenSeatRequestList, List<String>pdSeatList)throws Exception{
         Screen screen=screenService.getScreenByTheatreCodeAndScreenNumber(theatreCode, screenNumber);
         List<ScreenSeat> screenSeatList =new ArrayList<>();

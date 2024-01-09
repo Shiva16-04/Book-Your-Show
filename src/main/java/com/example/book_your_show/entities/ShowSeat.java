@@ -33,6 +33,4 @@ public class ShowSeat {
     ScreenSeat screenSeat;
     @ManyToOne(cascade = CascadeType.ALL)
     Ticket ticket;
-
-
 }

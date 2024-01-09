@@ -11,7 +11,7 @@ public class AuthenticationDetailsServiceImpl implements AuthenticationDetailsSe
     public String getAuthenticationDetails(){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails= (UserDetails)authentication.getPrincipal();
-        String userCode= userDetails.getUsername();
-        return userCode;
+        String userEmailId= userDetails.getUsername();
+        return userEmailId;
     }
 }

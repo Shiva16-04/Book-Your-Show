@@ -4,10 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,13 +17,15 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(nullable = false, unique = true)
+    String code;
     @Column(nullable = false)
     int totalPrice;
     @OneToMany(mappedBy = "ticket")
 //    @JoinColumn(nullable = false)--doubt
     List<ShowSeat>bookedSeats;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     Show show;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     User user;
 }

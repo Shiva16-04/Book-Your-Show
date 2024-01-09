@@ -35,7 +35,7 @@ public class ShowServiceImpl implements ShowService {
     private ShowRepository showRepository;
     @Autowired
     private ShowCodeGenerator showCodeGenerator;
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String addShow(ShowRequest showRequest) throws Exception{
 
         String movieCode=showRequest.getMovieCode();
@@ -72,7 +72,7 @@ public class ShowServiceImpl implements ShowService {
         //setting the attributes
         show.setCode(code);
 
-        show.getScreenList().add(screen); //setting the foreign key
+        show.setScreen(screen); //setting the foreign key
         show.setMovie(movie); //setting the foreign key
 
         screen.getShowList().add(show); //setting bidirectional mapping

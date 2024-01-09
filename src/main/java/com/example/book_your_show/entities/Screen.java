@@ -27,7 +27,7 @@ public class Screen {
     Theatre theatre;
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL) //parent with respect to screenSeat list bidirectional mapping
     List<ScreenSeat> screenSeatList;
-    @ManyToMany (mappedBy = "screenList", cascade = CascadeType.ALL) //parent with respect to Show List bidirectional mapping
+    @OneToMany (mappedBy = "screen", cascade = CascadeType.ALL) //parent with respect to Show List bidirectional mapping
     List<Show>showList;
 
 }

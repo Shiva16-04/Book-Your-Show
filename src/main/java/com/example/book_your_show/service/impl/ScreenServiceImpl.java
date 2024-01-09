@@ -27,7 +27,7 @@ public class ScreenServiceImpl implements ScreenService {
     private ScreenSeatService screenSeatService;
     @Autowired
     private TheatreService theatreService;
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String addScreens(String theatreCode, List<ScreenRequest>screenRequestList)throws Exception{
         Theatre theatre=theatreService.getTheatreByTheatreCode(theatreCode);
         List<Screen>screenList=new ArrayList<>();

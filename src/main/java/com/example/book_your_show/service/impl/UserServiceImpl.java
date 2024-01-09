@@ -6,6 +6,7 @@ import com.example.book_your_show.enums.Role;
 import com.example.book_your_show.exceptions.InValidEmailVerificationCodeException;
 import com.example.book_your_show.exceptions.PasswordReTypePasswordNotMatchException;
 import com.example.book_your_show.exceptions.UserAlreadyPresentException;
+import com.example.book_your_show.exceptions.UserNotFoundException;
 import com.example.book_your_show.generators.EmailGenerator;
 import com.example.book_your_show.generators.UserCodeGenerator;
 import com.example.book_your_show.repository.UserEmailVerificationCodeDetailsRepository;
@@ -94,5 +95,12 @@ public class UserServiceImpl implements UserService {
         }else{
             throw  new InValidEmailVerificationCodeException("Invalid Code!!!");
         }
+    }
+    public User getUserByEmailId(String emailId)throws Exception{
+        Optional<User>optionalUser=userRepository.findByEmailId(emailId);
+        if(!optionalUser.isPresent()){
+            throw new UserNotFoundException("Invalid Credentials");
+        }
+        return optionalUser.get();
     }
 }
