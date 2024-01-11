@@ -11,10 +11,18 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ShowSeatRequest {
+    int priceOfPhysicallyHandicappedSeats;
+    boolean isFoodAttachedForPHS;
     int priceOfSilverSeats;
+    boolean isFoodAttachedForSS;
     int priceOfGoldSeats;
+    boolean isFoodAttachedForGS;
     int priceOfPlatinumSeats;
+    boolean isFoodAttachedForPS;
     int priceOfLoungers;
+    boolean isFoodAttachedForLS;
     int priceOfSemiRecliners;
+    boolean isFoodAttachedForSRS;
     int priceOfRecliners;
+    boolean isFoodAttachedForRS;
 }

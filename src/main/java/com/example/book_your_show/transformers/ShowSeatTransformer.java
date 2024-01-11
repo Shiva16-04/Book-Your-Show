@@ -1,6 +1,5 @@
 package com.example.book_your_show.transformers;
 
-import com.example.book_your_show.entities.Show;
 import com.example.book_your_show.entities.ShowSeat;
 import com.example.book_your_show.enums.SeatType;
 

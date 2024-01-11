@@ -1,7 +1,5 @@
 package com.example.book_your_show.controller;
 
-import com.example.book_your_show.entities.FilmMaker;
-import com.example.book_your_show.entities.Profession;
 import com.example.book_your_show.enums.ProfessionEnum;
 import com.example.book_your_show.requestDTO.FilmMakerRequest;
 import com.example.book_your_show.service.FilmMakerService;

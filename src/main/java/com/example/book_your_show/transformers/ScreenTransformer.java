@@ -2,7 +2,6 @@ package com.example.book_your_show.transformers;
 
 import com.example.book_your_show.entities.Screen;
 import com.example.book_your_show.requestDTO.ScreenRequest;
-import jdk.dynalink.beans.StaticClass;
 
 import java.util.ArrayList;
 

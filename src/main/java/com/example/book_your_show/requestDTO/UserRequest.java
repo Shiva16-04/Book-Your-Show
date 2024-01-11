@@ -1,7 +1,5 @@
 package com.example.book_your_show.requestDTO;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

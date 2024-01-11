@@ -1,10 +1,8 @@
 package com.example.book_your_show.generators;
 
-import com.example.book_your_show.entities.User;
 import com.example.book_your_show.responseDTO.TicketResponse;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.UUID;
 @Component
 public class EmailGenerator {

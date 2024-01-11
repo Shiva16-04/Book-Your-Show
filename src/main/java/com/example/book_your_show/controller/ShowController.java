@@ -2,7 +2,6 @@ package com.example.book_your_show.controller;
 
 import com.example.book_your_show.requestDTO.ShowRequest;
 import com.example.book_your_show.service.ShowService;
-import com.example.book_your_show.service.impl.ShowServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

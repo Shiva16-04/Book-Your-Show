@@ -6,6 +6,7 @@ import com.example.book_your_show.entities.Ticket;
 import com.example.book_your_show.entities.User;
 import com.example.book_your_show.exceptions.InvalidTicketCodeException;
 import com.example.book_your_show.exceptions.ShowSeatNotAvailableException;
+import com.example.book_your_show.exceptions.TicketCannotBeBookedException;
 import com.example.book_your_show.exceptions.TicketCannotBeCancelledException;
 import com.example.book_your_show.generators.EmailGenerator;
 import com.example.book_your_show.generators.TicketCodeGenerator;
@@ -53,15 +54,19 @@ public class TicketServiceImpl implements TicketService {
 
         //Even though we can assume that show code we get are valid as front end will display
         //only valid shows but still handling exceptions to prevent sever down due to malware attacks
+
         String showCode=ticketRequest.getShowCode();
         List<String>showSeatNumberList=ticketRequest.getBookedSeats();
 
         Show show=showService.getShowByShowCode(showCode);
         List<ShowSeat>showSeatList=showSeatService.findShowSeatsByShowCodeAndShowSeatNoList(showCode, showSeatNumberList);
 
-//        if(showSeatList.stream().anyMatch(showSeat -> !showSeat.isAvailable())){
-//            throw new ShowSeatNotAvailableException("Seat  you are trying to access is not available");
-//        }
+        LocalDateTime currentTime=LocalDateTime.now();
+        LocalDateTime showTime=show.getEndTime();
+
+        if(currentTime.isAfter(showTime)){
+            throw new TicketCannotBeBookedException("Ticket cannot be booked as show with show code "+showCode+" is already ended on "+show.getEndTime());
+        }
 
         String code=ticketCodeGenerator.generate("TKT");
         Ticket ticket= TicketTransformer.ticketRequestToTicket(code);
@@ -177,6 +182,11 @@ public class TicketServiceImpl implements TicketService {
         mailConfigurationService.mailSender(SENDER_EMAIL, user.getEmailId(),emailBody, "Booking Cancellation Confirmation");
 
         return message;
+    }
+    public long getMovieBookingRevenueByMovieCodeAndDateRange(String movieCode, LocalDate startDateOfRange, LocalDate endDateOfRange){
+        Long totalRevenue=ticketRepository.getMovieBookingRevenueByMovieCode(movieCode, startDateOfRange, endDateOfRange);
+        return totalRevenue==null?0:totalRevenue;
+
     }
     public Ticket getTicketByTicketCode(String ticketCode)throws Exception{
         Optional<Ticket>optionalTicket=ticketRepository.findByCode(ticketCode);

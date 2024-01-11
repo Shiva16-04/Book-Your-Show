@@ -1,12 +1,10 @@
 package com.example.book_your_show.service.impl;
 
 import com.example.book_your_show.entities.Screen;
-import com.example.book_your_show.entities.ScreenSeat;
 import com.example.book_your_show.entities.Theatre;
 import com.example.book_your_show.exceptions.ScreenNotFoundException;
 import com.example.book_your_show.repository.ScreenRepository;
 import com.example.book_your_show.requestDTO.ScreenRequest;
-import com.example.book_your_show.requestDTO.TheatreRequest;
 import com.example.book_your_show.service.ScreenSeatService;
 import com.example.book_your_show.service.ScreenService;
 import com.example.book_your_show.service.TheatreService;

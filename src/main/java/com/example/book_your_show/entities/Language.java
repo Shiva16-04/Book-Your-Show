@@ -1,6 +1,5 @@
 package com.example.book_your_show.entities;
 
-import com.example.book_your_show.enums.GenreEnum;
 import com.example.book_your_show.enums.LanguageEnum;
 import jakarta.persistence.*;
 import lombok.*;

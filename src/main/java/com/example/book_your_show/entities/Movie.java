@@ -1,7 +1,6 @@
 package com.example.book_your_show.entities;
 
 import com.example.book_your_show.enums.FilmCertificationCategory;
-import com.example.book_your_show.enums.FormatEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -43,7 +42,7 @@ public class Movie {
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     List<Genre> genreList;
-    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     List<Show>showList;
     @ManyToMany
     List<FilmMaker>filmMakersList;

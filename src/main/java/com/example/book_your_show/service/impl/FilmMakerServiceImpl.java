@@ -12,7 +12,6 @@ import com.example.book_your_show.service.GeneralService;
 import com.example.book_your_show.transformers.FilmMakerTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;

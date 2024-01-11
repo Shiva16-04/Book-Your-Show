@@ -1,6 +1,5 @@
 package com.example.book_your_show.entities;
 
-import com.example.book_your_show.enums.ProfessionEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;

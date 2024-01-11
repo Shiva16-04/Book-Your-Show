@@ -6,7 +6,6 @@ import com.example.book_your_show.enums.GenreEnum;
 import com.example.book_your_show.enums.LanguageEnum;
 import com.example.book_your_show.requestDTO.MovieRequest;
 import com.example.book_your_show.service.MovieService;
-import com.example.book_your_show.service.impl.MovieServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

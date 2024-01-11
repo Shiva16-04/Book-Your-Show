@@ -1,7 +1,6 @@
 package com.example.book_your_show.entities;
 
 import com.example.book_your_show.enums.FormatEnum;
-import com.example.book_your_show.enums.GenreEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

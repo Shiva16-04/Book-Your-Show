@@ -6,7 +6,6 @@ import com.example.book_your_show.entities.Show;
 import com.example.book_your_show.entities.ShowSeat;
 import com.example.book_your_show.enums.SeatType;
 import com.example.book_your_show.repository.ShowSeatRepository;
-import com.example.book_your_show.requestDTO.ShowRequest;
 import com.example.book_your_show.requestDTO.ShowSeatRequest;
 import com.example.book_your_show.service.ScreenService;
 import com.example.book_your_show.service.ShowSeatService;
@@ -40,29 +39,33 @@ public class ShowSeatServiceImpl implements ShowSeatService {
             boolean isFoodAttached=false;
             SeatType seatType=screenSeat.getScreenSeatType();
             switch (seatType){
+                case PHYSICALLY_HANDICAPPED -> {
+                    cost=showSeatRequest.getPriceOfPhysicallyHandicappedSeats();
+                    isFoodAttached = showSeatRequest.isFoodAttachedForPHS();
+                }
                 case SILVER -> {
                     cost = showSeatRequest.getPriceOfSilverSeats();
-                    isFoodAttached = false;
+                    isFoodAttached = showSeatRequest.isFoodAttachedForSS();
                 }
-                case GOLD ->{
+                case GOLD -> {
                     cost=showSeatRequest.getPriceOfGoldSeats();
-                    isFoodAttached=false;
+                    isFoodAttached = showSeatRequest.isFoodAttachedForGS();
                 }
                 case PLATINUM -> {
                     cost = showSeatRequest.getPriceOfPlatinumSeats();
-                    isFoodAttached=true;
+                    isFoodAttached = showSeatRequest.isFoodAttachedForPS();
                 }
                 case LOUNGERS -> {
                     cost = showSeatRequest.getPriceOfLoungers();
-                    isFoodAttached=true;
+                    isFoodAttached = showSeatRequest.isFoodAttachedForLS();
                 }
                 case SEMI_RECLINERS -> {
                     cost= showSeatRequest.getPriceOfSemiRecliners();
-                    isFoodAttached=true;
+                    isFoodAttached = showSeatRequest.isFoodAttachedForSRS();
                 }
                 case RECLINERS -> {
                     cost = showSeatRequest.getPriceOfRecliners();
-                    isFoodAttached=true;
+                    isFoodAttached = showSeatRequest.isFoodAttachedForRS();
                 }
             }
 

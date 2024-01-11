@@ -1,9 +1,6 @@
 package com.example.book_your_show.service;
 
-import com.example.book_your_show.entities.Screen;
-import com.example.book_your_show.entities.Show;
 import com.example.book_your_show.entities.ShowSeat;
-import com.example.book_your_show.requestDTO.ShowRequest;
 import com.example.book_your_show.requestDTO.ShowSeatRequest;
 
 import java.util.List;

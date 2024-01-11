@@ -1,6 +1,5 @@
 package com.example.book_your_show.repository;
 
-import com.example.book_your_show.entities.Address;
 import com.example.book_your_show.entities.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

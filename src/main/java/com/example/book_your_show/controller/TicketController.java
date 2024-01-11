@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("ticket")
 public class TicketController {
@@ -28,5 +30,11 @@ public class TicketController {
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.ACCEPTED);
         }
+    }
+    @GetMapping("/movie-booking-revenue")
+    public ResponseEntity getMovieBookingRevenue(@RequestParam String movieCode, @RequestParam LocalDate startDateOfRange,
+                                                 @RequestParam LocalDate endDateOfRange){
+        return new ResponseEntity(ticketService.getMovieBookingRevenueByMovieCodeAndDateRange(movieCode, startDateOfRange,
+                endDateOfRange),HttpStatus.OK);
     }
 }

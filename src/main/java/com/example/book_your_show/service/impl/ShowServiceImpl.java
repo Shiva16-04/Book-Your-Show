@@ -1,6 +1,9 @@
 package com.example.book_your_show.service.impl;
 
-import com.example.book_your_show.entities.*;
+import com.example.book_your_show.entities.Movie;
+import com.example.book_your_show.entities.Screen;
+import com.example.book_your_show.entities.Show;
+import com.example.book_your_show.entities.Theatre;
 import com.example.book_your_show.exceptions.InvalidShowCodeException;
 import com.example.book_your_show.exceptions.ShowCannotBeAddedException;
 import com.example.book_your_show.generators.ShowCodeGenerator;

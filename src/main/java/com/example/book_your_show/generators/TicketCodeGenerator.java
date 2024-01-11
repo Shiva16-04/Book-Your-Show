@@ -1,6 +1,5 @@
 package com.example.book_your_show.generators;
 
-import com.example.book_your_show.entities.Ticket;
 import com.example.book_your_show.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

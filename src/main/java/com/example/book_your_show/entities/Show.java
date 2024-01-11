@@ -2,16 +2,13 @@ package com.example.book_your_show.entities;
 
 import com.example.book_your_show.enums.FormatEnum;
 import com.example.book_your_show.enums.LanguageEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,7 +25,7 @@ public class Show {
     int id;
     @Column(nullable = false, unique = true)
     String code;
-    @Column(nullable = false)
+    @Column(name = "show_date", nullable = false)
     LocalDate date;
     @Column(nullable = false)
     LocalDateTime startTime;
@@ -44,7 +41,6 @@ public class Show {
     FormatEnum formatEnum;
     @ManyToOne //here show is the child with respect to the movie
     Movie movie;
-//    @ManyToMany //here show is the child with respect to the Screen
     @ManyToOne
     Screen screen;
     @OneToMany (mappedBy = "show", cascade = CascadeType.ALL) //parent with respect to the show seat

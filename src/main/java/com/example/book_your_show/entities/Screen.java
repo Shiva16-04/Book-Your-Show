@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,5 +28,4 @@ public class Screen {
     List<ScreenSeat> screenSeatList;
     @OneToMany (mappedBy = "screen", cascade = CascadeType.ALL) //parent with respect to Show List bidirectional mapping
     List<Show>showList;
-
 }

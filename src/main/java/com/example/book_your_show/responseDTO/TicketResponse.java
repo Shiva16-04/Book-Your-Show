@@ -1,6 +1,5 @@
 package com.example.book_your_show.responseDTO;
 
-import jakarta.persistence.Column;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

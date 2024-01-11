@@ -20,6 +20,7 @@ public class ShowSeat {
     @Column(nullable = false) //seat number and seat type will get it from the parent
     String showSeatNo;
     @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
     SeatType showSeatType;
     @Column(nullable = false)
     int cost;

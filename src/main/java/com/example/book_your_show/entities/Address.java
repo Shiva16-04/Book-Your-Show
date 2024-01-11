@@ -23,6 +23,7 @@ public class Address {
     String code;
     @Column(nullable = false)
     String plotNo;
+    @Column(nullable = false)
     String locality;
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)

@@ -1,7 +1,9 @@
 package com.example.book_your_show.transformers;
 
-import com.example.book_your_show.entities.*;
-import com.example.book_your_show.requestDTO.TicketRequest;
+import com.example.book_your_show.entities.Movie;
+import com.example.book_your_show.entities.Show;
+import com.example.book_your_show.entities.Theatre;
+import com.example.book_your_show.entities.Ticket;
 import com.example.book_your_show.responseDTO.TicketResponse;
 
 import java.util.ArrayList;
