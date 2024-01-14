@@ -4,7 +4,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class ShowResponse {
+public class ShowResponseOriginal {
     String movieName;
     String language;
     String format;

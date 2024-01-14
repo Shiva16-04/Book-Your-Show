@@ -3,17 +3,17 @@ package com.example.book_your_show.responseDTO;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.net.URL;
 import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class FilmMakerResponse {
-    String code;
-    String name;
-    List<ProfessionResponse> professionResponseList;
-    LocalDate dateOfBirth;
-    String birthPlace;
+public class TheatreResponseShow {
+    String theatreName;
+    String locality;
+    String city;
+    URL theatreLocationUrl;
+    List<ShowResponseTheatre> showResponseTheatreList;
 }

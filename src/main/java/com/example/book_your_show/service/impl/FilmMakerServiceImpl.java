@@ -7,12 +7,14 @@ import com.example.book_your_show.exceptions.FilmMakerAlreadyPresentException;
 import com.example.book_your_show.generators.FilmMakerCodeGenerator;
 import com.example.book_your_show.repository.FilmMakerRepository;
 import com.example.book_your_show.requestDTO.FilmMakerRequest;
+import com.example.book_your_show.responseDTO.FilmMakerResponse;
 import com.example.book_your_show.service.FilmMakerService;
 import com.example.book_your_show.service.GeneralService;
 import com.example.book_your_show.transformers.FilmMakerTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,5 +50,13 @@ public class FilmMakerServiceImpl implements FilmMakerService {
     }
     public List<FilmMaker> getFilmMaker(List<String>filmMakerCodeList){
         return filmMakerRepository.findByCodeIn(filmMakerCodeList);
+    }
+    public List<FilmMakerResponse> findFilmMakersByFilmMakerCodeList(List<String>filmMakerCodeList){
+        List<FilmMaker>filmMakerList= filmMakerRepository.findByCodeIn(filmMakerCodeList);
+        List<FilmMakerResponse>filmMakerResponseList=new ArrayList<>();
+        for(FilmMaker filmMaker:filmMakerList){
+            filmMakerResponseList.add(FilmMakerTransformer.filmMakerToFilmMakerResponse(filmMaker));
+        }
+        return filmMakerResponseList;
     }
 }

@@ -1,20 +1,32 @@
 package com.example.book_your_show.service.impl;
 
-import com.example.book_your_show.entities.Address;
-import com.example.book_your_show.entities.Theatre;
+import com.example.book_your_show.entities.*;
+import com.example.book_your_show.enums.City;
+import com.example.book_your_show.enums.FormatEnum;
+import com.example.book_your_show.enums.LanguageEnum;
 import com.example.book_your_show.exceptions.InvalidTheatreCodeException;
 import com.example.book_your_show.generators.TheatreCodeGenerator;
 import com.example.book_your_show.repository.TheatreRepository;
 import com.example.book_your_show.requestDTO.AddressRequest;
 import com.example.book_your_show.requestDTO.TheatreRequest;
+import com.example.book_your_show.responseDTO.ShowResponseTheatre;
+import com.example.book_your_show.responseDTO.ShowSeatResponse;
+import com.example.book_your_show.responseDTO.TheatreResponseShow;
 import com.example.book_your_show.service.AddressService;
 import com.example.book_your_show.service.ScreenService;
 import com.example.book_your_show.service.TheatreService;
+import com.example.book_your_show.transformers.ShowSeatTransformer;
+import com.example.book_your_show.transformers.ShowTransformer;
 import com.example.book_your_show.transformers.TheatreTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,4 +68,5 @@ public class TheatreServiceImpl implements TheatreService {
         }
         return optionalTheatre.get();
     }
+
 }

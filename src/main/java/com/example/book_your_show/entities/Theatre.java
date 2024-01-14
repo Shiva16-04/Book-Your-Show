@@ -26,11 +26,9 @@ public class Theatre {
     @Column(nullable = false)
     int numberOfScreens;
     @OneToOne(mappedBy = "theatre", cascade = CascadeType.ALL)
-//    @JoinColumn(nullable = false, unique = true)
     Address address;
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL) //parent with respect to number of screens
     List<Screen> screens;
-
     @Override
     public int hashCode() {
         return Objects.hash(id, code, name, numberOfScreens, address, screens);

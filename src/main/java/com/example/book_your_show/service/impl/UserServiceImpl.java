@@ -109,9 +109,5 @@ public class UserServiceImpl implements UserService {
         }
         return optionalUser.get();
     }
-//    private String codeEncoding(String rawCode){
-//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        return passwordEncoder.encode(rawCode);
-//    }
 
 }

@@ -25,4 +25,8 @@ public class FilmMakerController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/get-film-maker-list")
+    public ResponseEntity getFilmMakersByFilmMakerCodeList(@RequestParam List<String>filmMakerCodeList){
+        return new ResponseEntity<>(filmMakerService.findFilmMakersByFilmMakerCodeList(filmMakerCodeList), HttpStatus.ACCEPTED);
+    }
 }

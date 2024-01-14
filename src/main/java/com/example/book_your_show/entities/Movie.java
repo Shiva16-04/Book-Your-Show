@@ -1,6 +1,8 @@
 package com.example.book_your_show.entities;
 
 import com.example.book_your_show.enums.FilmCertificationCategory;
+import com.example.book_your_show.enums.FormatEnum;
+import com.example.book_your_show.enums.LanguageEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -46,5 +48,16 @@ public class Movie {
     List<Show>showList;
     @ManyToMany
     List<FilmMaker>filmMakersList;
-
+    public boolean hasLanguage(LanguageEnum languageEnum){
+        for(Language language:languagesReleasedIn){
+            if(language.getName()==languageEnum)return true;
+        }
+        return false;
+    }
+    public boolean hasFormat(FormatEnum formatEnum){
+        for(Format format: formatList){
+            if(format.getName()==formatEnum)return true;
+        }
+        return false;
+    }
 }
