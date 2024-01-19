@@ -59,5 +59,4 @@ public interface ShowRepository extends JpaRepository<Show,Integer> {
             @Param("startTimeRange") LocalDateTime startTimeRange,
             @Param("endTimeRange")LocalDateTime endTimeRange,
             @Param("theatreCode")String theatreCode);
-
 }

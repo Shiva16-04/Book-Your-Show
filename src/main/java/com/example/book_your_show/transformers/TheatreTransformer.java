@@ -17,7 +17,7 @@ public class TheatreTransformer {
     public static Theatre theatreRequestToTheatre(TheatreRequest theatreRequest){
         return Theatre.builder()
                 .name(theatreRequest.getTheatreName())
-                .numberOfScreens(theatreRequest.getNoOfScreens())
+                .numberOfScreens(0)
                 .screens(new ArrayList<>())
                 .build();
         //need to add screen's list and vice versa as part of the bidirectional mapping

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ScreenSeatService {
     public String addScreenSeats(String theatreCode, String screenNumber, List<ScreenSeatRequest>screenSeatRequestList, List<String>pdSeatList)throws Exception;
+    public String deleteScreenSeat(String theatreCode, String screenNumber, String screenSeatNumber)throws Exception;
 }

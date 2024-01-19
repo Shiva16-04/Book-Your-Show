@@ -2,6 +2,7 @@ package com.example.book_your_show.service.impl;
 
 import com.example.book_your_show.entities.Screen;
 import com.example.book_your_show.entities.Theatre;
+import com.example.book_your_show.exceptions.ScreenAlreadyPresentException;
 import com.example.book_your_show.exceptions.ScreenNotFoundException;
 import com.example.book_your_show.repository.ScreenRepository;
 import com.example.book_your_show.requestDTO.ScreenRequest;
@@ -28,8 +29,15 @@ public class ScreenServiceImpl implements ScreenService {
     @Transactional(rollbackFor = Exception.class)
     public String addScreens(String theatreCode, List<ScreenRequest>screenRequestList)throws Exception{
         Theatre theatre=theatreService.getTheatreByTheatreCode(theatreCode);
-        List<Screen>screenList=new ArrayList<>();
+
+        List<Screen>screenList=theatre.getScreens();
         for(ScreenRequest screenRequest: screenRequestList) {
+            Optional<Screen>optionalScreen=screenRepository.findByTheatreCodeAndScreenNumber(theatreCode, screenRequest.getScreenNumber());
+
+            if(optionalScreen.isPresent()){
+                throw new ScreenAlreadyPresentException("Screen is already present with this Screen number "+screenRequest.getScreenNumber());
+            }
+
             Screen screen= ScreenTransformer.screenRequesToScreen(screenRequest);
             screen.setTheatre(theatre);
             screenRepository.save(screen);
@@ -38,6 +46,7 @@ public class ScreenServiceImpl implements ScreenService {
             screenSeatService.addScreenSeats(theatre.getCode(), screen.getScreenNumber(), screenRequest.getScreenSeatRequestList(), screenRequest.getSeatListForPD());
 
             theatre.getScreens().add(screen);
+            theatre.setNumberOfScreens(theatre.getNumberOfScreens()+1);
             screenRepository.save(screen);
         }
         return "Screen(s) "+screenRequestList+" have been added successfully to the theatre with theatre code: "+theatreCode;
@@ -49,5 +58,4 @@ public class ScreenServiceImpl implements ScreenService {
         }
         return optionalScreen.get();
     }
-
 }

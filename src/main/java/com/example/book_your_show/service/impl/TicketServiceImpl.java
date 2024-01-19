@@ -4,6 +4,7 @@ import com.example.book_your_show.entities.Show;
 import com.example.book_your_show.entities.ShowSeat;
 import com.example.book_your_show.entities.Ticket;
 import com.example.book_your_show.entities.User;
+import com.example.book_your_show.enums.Role;
 import com.example.book_your_show.exceptions.InvalidTicketCodeException;
 import com.example.book_your_show.exceptions.ShowSeatNotAvailableException;
 import com.example.book_your_show.exceptions.TicketCannotBeBookedException;
@@ -124,31 +125,39 @@ public class TicketServiceImpl implements TicketService {
         //Getting the user details from login information and mapping ticket and user
         String emailId=authenticationDetailsService.getAuthenticationDetails();
         User user=userService.getUserByEmailId(emailId);
-
-        List<Ticket>userTicketList=user.getTicketList();
         Ticket ticket=getTicketByTicketCode(ticketCode);
-        if(!userTicketList.contains(ticket)){
-            throw new InvalidTicketCodeException("Ticket is invalid / not belongs to the user "+user.getName());
+
+        //if login information is not of admin then we need to cross-check user ticket list for delete request of ticket
+        //user can delete ticket only if that person logins
+        //admin can delete anyone's ticket
+        if(!(user.getRole() == Role.ADMIN)) {
+            List<Ticket> userTicketList = user.getTicketList();
+            if (!userTicketList.contains(ticket)) {
+                throw new InvalidTicketCodeException("Ticket is invalid / not belongs to the user " + user.getName());
+            }
         }
 
         Show show=ticket.getShow();
         int ticketCost=ticket.getTotalPrice();
 
-        LocalDateTime cancellationRequestTime= LocalDateTime.now();
-        LocalDateTime showTime=show.getStartTime();
-        LocalTime cancellationTime=show.getTicketCancellationTimeLimit();
+        //overriding cancellation policy for admin only valid for user
+        if(!(user.getRole()== Role.ADMIN)) {
+            LocalDateTime cancellationRequestTime = LocalDateTime.now();
+            LocalDateTime showTime = show.getStartTime();
+            LocalTime cancellationTimeLimit = show.getTicketCancellationTimeLimit();
 
-        long totalMinutes = Duration.between(cancellationRequestTime, showTime).toMinutes();
+            long totalMinutes = Duration.between(cancellationRequestTime, showTime).toMinutes();
 
-        // Calculate hours and remaining minutes
-        long hours = totalMinutes / 60;
-        long minutes = totalMinutes % 60;
+            // Calculate hours and remaining minutes
+            long hours = totalMinutes / 60;
+            long minutes = totalMinutes % 60;
 
-        // Create a new LocalTime using the calculated hours and minutes
-        LocalTime difference = LocalTime.of((int) hours, (int) minutes);
+            // Create a new LocalTime using the calculated hours and minutes
+            LocalTime difference = LocalTime.of((int) hours, (int) minutes);
 
-        if(difference.isBefore(cancellationTime)){
-            throw new TicketCannotBeCancelledException("Ticket cannot be cancelled now");
+            if (difference.isBefore(cancellationTimeLimit)) {
+                throw new TicketCannotBeCancelledException("Ticket cannot be cancelled now");
+            }
         }
 
         List<ShowSeat>bookedSeatList=ticket.getBookedSeats();

@@ -17,5 +17,4 @@ public class ScreenRequest {
     int totalNumberOfSeats;
     List<ScreenSeatRequest> screenSeatRequestList;
     List<String>seatListForPD;
-
 }
