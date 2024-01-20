@@ -115,7 +115,7 @@ public class ShowSeatServiceImpl implements ShowSeatService {
 
             //Handling null pointer exception as ticket cancellation
             // can lead to removal of ticket mapping from other show seats
-            if(showSeat.getTicket()==null)
+            if(showSeat.getTicket()!=null)
                 ticketService.cancelTicket(showSeat.getTicket().getCode());
 
             //finally deleting show seat after removing all the mappings

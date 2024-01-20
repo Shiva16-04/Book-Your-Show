@@ -9,7 +9,7 @@ public class ScreenTransformer {
     public static Screen screenRequesToScreen(ScreenRequest screenRequest){
         return Screen.builder()
                 .screenNumber(screenRequest.getScreenNumber())
-                .noOfSeats(screenRequest.getTotalNumberOfSeats())
+                .noOfSeats(0)
                 .screenSeatList(new ArrayList<>())
                 .showList(new ArrayList<>())
                 .build();
