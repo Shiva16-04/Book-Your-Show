@@ -102,25 +102,27 @@ public class ShowSeatServiceImpl implements ShowSeatService {
     @Transactional(rollbackFor = Exception.class)
     private void processShowSeatDeletion(List<ShowSeat>showSeatList)throws Exception{
         Iterator<ShowSeat> showSeatIterator= showSeatList.iterator();
+        List<Integer>showSeatId=new ArrayList<>();
         while (showSeatIterator.hasNext()){
             ShowSeat showSeat=showSeatIterator.next();
-            Show show=showSeat.getShow();
-            ScreenSeat screenSeat=showSeat.getScreenSeat();
-            //setting show seat attributes to null
-            showSeat.setShow(null);
-            showSeat.setScreenSeat(null);
-            //bi-directionally removing
-            show.getShowSeatList().remove(showSeat);
-            screenSeat.getShowSeatList().remove(showSeat);
+                Show show = showSeat.getShow();
+                ScreenSeat screenSeat = showSeat.getScreenSeat();
+                //setting show seat attributes to null
+                showSeat.setShow(null);
+                showSeat.setScreenSeat(null);
+                //bi-directionally removing
+                show.getShowSeatList().remove(showSeat);
+                screenSeat.getShowSeatList().remove(showSeat);
 
-            //Handling null pointer exception as ticket cancellation
-            // can lead to removal of ticket mapping from other show seats
-            if(showSeat.getTicket()!=null)
-                ticketService.cancelTicket(showSeat.getTicket().getCode());
+                //Handling null pointer exception as ticket cancellation
+                // can lead to removal of ticket mapping from other show seats
+                if (showSeat.getTicket() != null)
+                    ticketService.cancelTicket(showSeat.getTicket().getCode());
 
-            //finally deleting show seat after removing all the mappings
-            showSeatRepository.deleteById(showSeat.getId());
+                //finally deleting show seat after removing all the mappings
+                showSeatRepository.deleteById(showSeat.getId());
         }
+
     }
     public List<ShowSeat> findShowSeatsByShowCodeAndShowSeatNoList(String showCode, List<String>showSeatNumberList){
         List<ShowSeat>showSeatList=showSeatRepository.findByShowCodeAndShowSeatNoIn(showCode, showSeatNumberList);

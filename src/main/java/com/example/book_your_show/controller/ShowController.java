@@ -41,4 +41,12 @@ public class ShowController {
                                                              @RequestParam (required = false)String theatreCode){
         return new ResponseEntity<>(showService.getFilteredTheatreShowResponseList(city, movieCode, languageEnum, formatEnum, showDate, startTimeRange, endTimeRange, theatreCode),HttpStatus.OK);
     }
+    @DeleteMapping("delete-show")
+    public ResponseEntity deleteShow(@RequestParam String showCode){
+        try {
+            return new ResponseEntity<>(showService.deleteShow(showCode),HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.fillInStackTrace(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

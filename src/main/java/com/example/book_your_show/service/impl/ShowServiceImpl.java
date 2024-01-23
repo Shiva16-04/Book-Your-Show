@@ -6,6 +6,7 @@ import com.example.book_your_show.enums.FormatEnum;
 import com.example.book_your_show.enums.LanguageEnum;
 import com.example.book_your_show.exceptions.InvalidShowCodeException;
 import com.example.book_your_show.exceptions.ShowCannotBeAddedException;
+import com.example.book_your_show.generators.EmailGenerator;
 import com.example.book_your_show.generators.ShowCodeGenerator;
 import com.example.book_your_show.repository.ShowRepository;
 import com.example.book_your_show.requestDTO.ShowRequest;
@@ -25,10 +26,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import static com.example.book_your_show.service.impl.MailConfigurationServiceImpl.SENDER_EMAIL;
 
 @Service
 @Slf4j
@@ -45,6 +45,10 @@ public class ShowServiceImpl implements ShowService {
     private ShowRepository showRepository;
     @Autowired
     private ShowCodeGenerator showCodeGenerator;
+    @Autowired
+    EmailGenerator emailGenerator;
+    @Autowired
+    MailConfigurationService mailConfigurationService;
     @Transactional(rollbackFor = Exception.class)
     public String addShow(ShowRequest showRequest) throws Exception{
 
@@ -144,6 +148,23 @@ public class ShowServiceImpl implements ShowService {
             System.out.println("Not same keys present");
         }
         return theatreResponseShowList;
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public String deleteShow(String showCode)throws Exception{
+        Show show=getShowByShowCode(showCode);
+        List<Ticket>ticketList=show.getTicketList();
+        showRepository.deleteById(show.getId());
+        for(Ticket ticket: ticketList) {
+            int ticketCost=ticket.getTotalPrice();
+            User user=ticket.getUser();
+            String message = "Ticket has been cancelled. Refund amount of Rs " + ticketCost + " has been initiated. " +
+                    "Amount will be reflected in your account with in 5-7 days";
+
+            String emailBody = emailGenerator.ticketCancellationConfirmationEmailGenerator(user.getName(), message);
+            mailConfigurationService.mailSender(SENDER_EMAIL, user.getEmailId(), emailBody, "Booking Cancellation Confirmation");
+        }
+        return "Show "+show.getCode()+" has been deleted successfully from the database and mails have been sent to the " +
+                "respective users regarding ticket cancellation and full refund has been issued";
     }
 
     public Show getShowByShowCode(String showCode)throws Exception{

@@ -14,5 +14,6 @@ import java.util.List;
 public interface ShowService {
     public String addShow(ShowRequest showRequest)throws Exception;
     public List<TheatreResponseShow> getFilteredTheatreShowResponseList(City city, String movieCode, LanguageEnum languageEnum, FormatEnum formatEnum, LocalDate showDate, LocalTime startTimeRange, LocalTime endTimeRange , String theatreCode);
+    public String deleteShow(String showCode)throws Exception;
     public Show getShowByShowCode(String showCode)throws Exception;
 }

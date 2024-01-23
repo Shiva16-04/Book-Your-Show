@@ -22,10 +22,9 @@ public class Ticket {
     @Column(nullable = false)
     int totalPrice;
     @OneToMany(mappedBy = "ticket")
-//    @JoinColumn(nullable = false)--doubt
     List<ShowSeat>bookedSeats;
     @ManyToOne(cascade = CascadeType.PERSIST)
     Show show;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     User user;
 }
