@@ -154,6 +154,13 @@ public class ShowServiceImpl implements ShowService {
         Show show=getShowByShowCode(showCode);
         List<Ticket>ticketList=show.getTicketList();
         showRepository.deleteById(show.getId());
+
+        //validating the show whether it is already completed or not
+        LocalDateTime showEndTime=show.getEndTime();
+        LocalDateTime presentTime=LocalDateTime.now();
+        if(presentTime.equals(showEndTime) || presentTime.isAfter(showEndTime))
+            return "Not a valid Show. It;s deletion will be handled by scheduler";
+
         for(Ticket ticket: ticketList) {
             int ticketCost=ticket.getTotalPrice();
             User user=ticket.getUser();

@@ -23,4 +23,12 @@ public class ScreenController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    @DeleteMapping("/delete-screen")
+    public ResponseEntity deleteScreen(@RequestParam String theatreCode, @RequestParam String screenNumber){
+        try {
+            return new ResponseEntity(screenService.deleteScreen(theatreCode, screenNumber), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
