@@ -61,6 +61,16 @@ public class TheatreServiceImpl implements TheatreService {
         theatreRepository.save(theatre); //cascading the save effect to address and screens
         return theatre.getCode();
     }
+    public String deleteTheatre(String theatreCode)throws Exception{
+        Theatre theatre=getTheatreByTheatreCode(theatreCode);
+        List<Screen>screenList=theatre.getScreens();
+        for(Screen screen: screenList){
+            screenService.deleteScreen(theatreCode, screen.getScreenNumber());
+        }
+        theatreRepository.deleteById(theatre.getId());
+        return "Theatre "+theatre.getName()+" is removed successfully from the database. Respective shows have been " +
+                "cancelled and refund initiated to the users who booked tickets";
+    }
     public Theatre getTheatreByTheatreCode(String theatreCode)throws Exception{
         Optional<Theatre>optionalTheatre=theatreRepository.findByCode(theatreCode);
         if(optionalTheatre.isEmpty()){

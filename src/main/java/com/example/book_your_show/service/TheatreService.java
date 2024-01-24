@@ -13,5 +13,6 @@ import java.util.List;
 
 public interface TheatreService {
     public String addTheatre(TheatreRequest theatreRequest)throws Exception;
+    public String deleteTheatre(String theatreCode)throws Exception;
     public Theatre getTheatreByTheatreCode(String theatreCode)throws Exception;
 }
